@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Chart from 'react-apexcharts'
 
 
 // icons
@@ -9,8 +10,6 @@ import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoIosCloudOutline } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
-import { TiWeatherDownpour } from "react-icons/ti";
-import { CiFacebook } from "react-icons/ci";
 import { FaArrowTrendUp } from "react-icons/fa6";
 import { FaTwitter } from "react-icons/fa";
 import { MdOutlineFacebook } from "react-icons/md";
@@ -19,11 +18,18 @@ import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { AiFillTikTok } from "react-icons/ai";
 import { FaCloudMoonRain } from "react-icons/fa";
+import { TbTemperatureCelsius } from "react-icons/tb";
+import { FaTemperatureArrowDown } from "react-icons/fa6";
+import { IoWarning } from "react-icons/io5";
+import { FaTemperatureArrowUp } from "react-icons/fa6";
+import { MdSignalWifiConnectedNoInternet4 } from "react-icons/md";
 
 
 // slices
 // users
 import { userSelector } from "../features/users/usersSlice";
+// weather
+import {weatherDataSelector,errorSelector,getCityWeatherData, isLoadingSelector} from '../features/weather/weatherSlice'
 
 // components
 // dashboard side nav
@@ -33,9 +39,19 @@ const Dashboard = () => {
   // states from slice
   // users
   const user = useSelector(userSelector);
+  // weather
+  const weatherData = useSelector(weatherDataSelector)
+  const error = useSelector(errorSelector)
+  const isLoading = useSelector(isLoadingSelector)
+  // local state
+  // city name
+  const [cityName,setCityName] = useState("")
+  
   // hooks
   // navigate
   const navigate = useNavigate();
+  // dispatch
+  const dispatch = useDispatch()
   // is focus
   const [isFocus,setIsFocus] = useState(false)
   // histories
@@ -104,6 +120,14 @@ const Dashboard = () => {
       }
     }
   }
+
+  // search city
+  const searchCityHandler = () => {
+    if(cityName?.trim()){
+      dispatch(getCityWeatherData(cityName))
+    }
+  }
+
   return (
     <div className="flex-grow flex">
       {/* content container */}
@@ -134,24 +158,110 @@ const Dashboard = () => {
             {/* 2 */}
             <div className="mt-5 flex flex-col-reverse lg:flex-row gap-5">
               {/* left */}
-              <div className="w-full lg:w-[50%] bg-red-300">left</div>
+              <div className="w-full lg:w-[50%] bg-red-100 gap-y-5 p-5 rounded-md flex flex-col">
+                {/* top */}
+                <div className="bg-white shadow-lg p-3 rounded-md flex items-center justify-between">
+                  <div>
+
+                  <p className="text-sm text-neutral-400">My Chart</p>
+                  <span className="text-xs">latest updates</span>
+                  </div>
+                  <div className="flex items-center justify-end gap-x-3">
+                    <FaTwitter className="text-sky-500"/>
+                    <FaGithub className="text-green-500"/>
+                    <AiFillInstagram className="text-orange-500"/>
+                  </div>
+                </div>
+                {/* bottom */}
+                <div className="flex-grow bg-white p-3 rounded-md shadow-lg ">
+                  <Chart height={170} series={[
+                    {
+                      name: 'max temp',
+                      data: [0,87,65,100,15,23,98,3,90,50]
+                    },
+                    {
+                      name: 'min tem',
+                      data: [7,9,100,55,93,0,43,90,50,100]
+                    },
+                  ]} options={{
+                    chart: {
+                      zoom: {
+                        enabled: false
+                      },
+                      toolbar: {
+                        show: false
+                      }
+                    },
+                    stroke: {
+                      width: 1,
+                      curve: 'smooth'
+                    },
+                    colors: ['#02bd18', '#0456d1']
+                  }}/>
+                </div>
+              </div>
               {/* right */}
               <div  className="w-full lg:w-[50%] bg-green-100 p-5 rounded-md">
                 {/* header */}
                 <header>
                   <div className={`flex items-center gap-x-1.5 bg-white rounded-md overflow-hidden p-2 border ${isFocus ? "border-green-300" : "border-transparent"}`}>
-                    <input onFocus={()=>{
+                    <input value={cityName} onChange={e=>setCityName(e.target.value)} onFocus={()=>{
                       setIsFocus(true)
                     }} onBlur={()=>{
                       setIsFocus(false)
                     }} className="w-full focus:ring-0 focus:outline-none bg-transparent" type="text" placeholder="search by city" />
-                    <CiSearch className={`text-xl ${isFocus ? "text-green-600" : "text-gray-500"}`}/>
+                    {
+                      isLoading
+                      ?
+                      <div className="w-[16px] rounded-full aspect-square border-2 border-green-500 border-r-transparent animate-spin"/>
+                      :
+
+                    <CiSearch onClick={searchCityHandler} className={`text-xl cursor-pointer ${isFocus ? "text-green-600" : "text-gray-500"}`}/>
+                    }
                   </div>
                 </header>
                 {/* content */}
+                {
+                  error 
+                  ?
+                  <>
+                  {
+                    error === "NETWORK_ERROR"
+                    ?
+                    <div className="mt-7 p-5 bg-white rounded-md">
+                      {/* icon */}
+                      <div className="flex items-center justify-center">
+                        <div className="w-[72px] aspect-square rounded-full border bg-red-100 border-red-600 flex items-center justify-center text-2xl text-red-600">
+                          <MdSignalWifiConnectedNoInternet4 />
+                        </div>
+                      </div>
+                      {/* text */}
+                      <p className="text-center text-sm text-red-600 max-w-[200px] mx-auto mt-3">
+                      Data retrieval failed. Please check your internet connection and try again.
+                      </p>
+                    </div>
+                    :
+                    error === "CITY_NOT_FOUND" 
+                    ?
+                    <div className="mt-7 p-5 bg-white rounded-md">
+                      {/* icon */}
+                      <div className="flex items-center justify-center">
+                        <div className="w-[72px] aspect-square rounded-full border bg-orange-100 border-orange-500 flex items-center justify-center text-2xl text-orange-500">
+                          <IoWarning />
+                        </div>
+                      </div>
+                      {/* text */}
+                      <p className="text-center text-sm text-orange-500 max-w-[200px] mx-auto mt-3">
+                      The city name you entered does not have available weather data. Please check it and try again.
+                      </p>
+                    </div>
+                    :null
+                  }
+                  </>
+                  :
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-7">
                   {/* left */}
-                  <div className="w-[50%]c bg-white p-5 rounded-md overflow-hidden">
+                  <div className="bg-white p-5 rounded-md overflow-hidden">
                     {/* image */}
                     <div className="flex items-center justify-center">
                       <div className="w-[100px] aspect-square overflow-hidden">
@@ -159,24 +269,39 @@ const Dashboard = () => {
                       </div>
                     </div>
                     {/* title */}
-                    <h3 className="text-center my-3 font-mon text-4xl">24<sup>o</sup>C</h3>
+                    <h3 className="text-center my-3 font-mon text-4xl">{weatherData?.temp}<sup>o</sup>C</h3>
                     {/* city */}
                     <p className="text-center text-lg font-bold text-neutral-600 flex items-center justify-center gap-x-3">
                       <CiLocationOn />
-                      Addis Ababa</p>
+                      {weatherData?.cityName}</p>
                   </div>
                   {/* right */}
-                  <div>
-                    <div className="bg-white rounded-md p-5 flex items-center gap-x-3">
+                  <div className="flex flex-col justify-between">
+                    {/* temperature */}
+                    <div className="bg-white rounded-md p-5">
+                    {/* header */}
+                    <header className="flex items-center gap-x-1.5 border-b border-neutral-200">
                       {/* icon */}
-                      <div className="w-[64px] aspect-square border border-neutral-300 flex items-center justify-center rounded-md">
-                        <FaCloudMoonRain className="text-3xl text-sky-500"/>
+                      <div>
+                        <TbTemperatureCelsius className="text-3xl text-sky-600"/>
                       </div>
                       {/* text */}
-                      <div>
-                        <h4 className="text-xl font-bold text-neutral-600">45%</h4>
-                        <p className="text-sm">Humidity</p>
+                      <p className="text-neutral-500 text-sm font-medium">Temperature</p>
+                    </header>
+                    <div className="flex flex-wrap flex-row items-center gap-x-3 mt-2">
+                      {/* min */}
+                      <div className="flex items-center gap-x-2">
+                        {/* icon */}
+                        <FaTemperatureArrowDown className="text-sm text-neutral-400" />
+                        <span className="text-sm font-bold text-red-500">{weatherData?.minTemp}<sup>o</sup>C</span>
                       </div>
+                      {/* max */}
+                      <div className="flex items-center gap-x-2">
+                        {/* icon */}
+                        <FaTemperatureArrowUp className="text-sm text-neutral-400"/>
+                        <span className="text-sm font-bold text-green-500">{weatherData?.maxTemp}<sup>o</sup>C</span>
+                      </div>
+                    </div>
                     </div>
                     <div className="bg-white rounded-md p-5 flex items-center gap-x-3 mt-5">
                       {/* icon */}
@@ -185,12 +310,13 @@ const Dashboard = () => {
                       </div>
                       {/* text */}
                       <div>
-                        <h4 className="text-xl font-bold text-neutral-600">45%</h4>
+                        <h4 className="text-xl font-bold text-neutral-600">{weatherData?.humidity}%</h4>
                         <p className="text-sm">Humidity</p>
                       </div>
                     </div>
                   </div>
                 </div>
+                }
               </div>
             </div>
             <div className="my-5 text-sm text-neutral-500">

@@ -25,7 +25,7 @@ const App = () => {
 
   // get city weather data
   useEffect(()=>{
-    dispatch(getCityWeatherData("London"))
+    dispatch(getCityWeatherData("Addis Ababa"))
   },[])
   return (
     <div className='h-[100vh] w-[100vw] pt-[5vh] flex flex-col overflow-hidden'>
