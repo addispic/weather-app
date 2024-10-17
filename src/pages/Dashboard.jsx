@@ -177,7 +177,7 @@ const Dashboard = () => {
             </div>
             <div className="my-5 text-sm text-neutral-500">
               <p>
-                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia illo dignissimos voluptatem quae.
+              This global website presents OFFICIAL weather observations, weather forecasts and climatological information for selected cities supplied by National Meteorological & Hydrological Services (NMHSs) worldwide.
               </p>
             </div>
             {/* 4 */}
@@ -196,7 +196,7 @@ const Dashboard = () => {
                           <div className="w-[26px] aspect-square bg-white rounded-md flex items-center justify-center text-green-600">
                             <listItem.icon className={`${index === 0 ? 'text-blue-600' : index === 1 ? 'text-sky-600' : index === 2 ? 'text-purple-600' : index === 3 ? 'text-green-600' : index === 4 ? 'text-sky-600' : 'text-neutral-600'}`}/>
                           </div>
-                          <p className="font-medium text-sm">{listItem.text}</p>
+                          <p className="font-medium text-sm">{listItem.title}</p>
                         </div>
                         <p className="my-3 font-medium text-sm">
                           Uniting for inclusion and diversity 
