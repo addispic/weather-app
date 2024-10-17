@@ -10,6 +10,14 @@ import { IoIosCloudOutline } from "react-icons/io";
 import { CiSearch } from "react-icons/ci";
 import { CiLocationOn } from "react-icons/ci";
 import { TiWeatherDownpour } from "react-icons/ti";
+import { CiFacebook } from "react-icons/ci";
+import { FaArrowTrendUp } from "react-icons/fa6";
+import { FaTwitter } from "react-icons/fa";
+import { MdOutlineFacebook } from "react-icons/md";
+import { AiFillInstagram } from "react-icons/ai";
+import { FaGithub } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa6";
+import { AiFillTikTok } from "react-icons/ai";
 
 
 // slices
@@ -29,6 +37,51 @@ const Dashboard = () => {
   const navigate = useNavigate();
   // is focus
   const [isFocus,setIsFocus] = useState(false)
+  // histories
+  const [histories,setHistories] = useState([
+    {
+      icon: MdOutlineFacebook,
+      title: 'Facebook',
+      text: '',
+      customers: '1.73M',
+      percent: '75%'
+    },
+    {
+      icon: FaTwitter,
+      title: 'Twitter',
+      text: '',
+      customers: '0.3M',
+      percent: '35%'
+    },
+    {
+      icon: AiFillInstagram,
+      title: 'Instagram',
+      text: '',
+      customers: '.75M',
+      percent: '45%'
+    },
+    {
+      icon: FaGithub,
+      title: 'Github',
+      text: '',
+      customers: '.1M',
+      percent: '13%'
+    },
+    {
+      icon: FaLinkedin,
+      title: 'Linkedin',
+      text: '',
+      customers: '3.0M',
+      percent: '95%'
+    },
+    {
+      icon: AiFillTikTok,
+      title: 'Tiktok',
+      text: '',
+      customers: '1.73M',
+      percent: '75%'
+    },
+  ])
 
   // effects
   useEffect(() => {
@@ -120,6 +173,47 @@ const Dashboard = () => {
                     }
                   </div>
                 </div>
+              </div>
+            </div>
+            <div className="my-5 text-sm text-neutral-500">
+              <p>
+                Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia illo dignissimos voluptatem quae.
+              </p>
+            </div>
+            {/* 4 */}
+            <div >
+              <h1 className="font-bold text-neutral-600">
+                My Campaigns
+              </h1>
+              {/* grid */}
+              <div className="mt-3 grid grid-cols-6 gap-5">
+                {
+                  histories.map((listItem,index)=>{
+                    return (
+                      <div key={listItem.title} className={`
+                       rounded-md p-3 ${index === 0 ? 'bg-blue-100' : index === 1 ? 'bg-sky-100' : index === 2 ? 'bg-purple-100' : index === 3 ? 'bg-green-100' : index === 4 ? 'bg-sky-200' : 'bg-neutral-100'}`}>
+                        <div className="flex items-center gap-x-1.5">
+                          <div className="w-[26px] aspect-square bg-white rounded-md flex items-center justify-center text-green-600">
+                            <listItem.icon className={`${index === 0 ? 'text-blue-600' : index === 1 ? 'text-sky-600' : index === 2 ? 'text-purple-600' : index === 3 ? 'text-green-600' : index === 4 ? 'text-sky-600' : 'text-neutral-600'}`}/>
+                          </div>
+                          <p className="font-medium text-sm">{listItem.text}</p>
+                        </div>
+                        <p className="my-3 font-medium text-sm">
+                          Uniting for inclusion and diversity 
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <div className="text-xs">
+                            <span className="font-bold">{listItem.customers}</span> <span>customers</span>
+                          </div>
+                          <div className="flex text-xs items-center justify-end gap-1">
+                            <FaArrowTrendUp />
+                            <span>{listItem.percent}</span>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })
+                }
               </div>
             </div>
           </div>
