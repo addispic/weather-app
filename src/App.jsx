@@ -1,5 +1,6 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Routes, Route} from 'react-router-dom'
+import {useDispatch} from 'react-redux'
 
 // components
 // header
@@ -13,7 +14,19 @@ import Login from './pages/Login'
 // dashboard
 import Dashboard from './pages/Dashboard'
 
+// slices
+// weather slice
+import {getCityWeatherData} from './features/weather/weatherSlice'
+
 const App = () => {
+  // hooks
+  // dispatch
+  const dispatch = useDispatch()
+
+  // get city weather data
+  useEffect(()=>{
+    dispatch(getCityWeatherData("London"))
+  },[])
   return (
     <div className='h-[100vh] w-[100vw] pt-[5vh] flex flex-col overflow-hidden'>
       {/* header */}

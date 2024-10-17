@@ -60,8 +60,22 @@ const DashboardSideNav = () => {
     activeLink: "Dashboard",
     isOn: false
   });
+  // side nav bar toggler
+  const sideNavBarToggler = () => {
+    let element = document.getElementById('dashboard-side-nav')
+    if(element?.classList.contains('absolute')){
+      if(element?.classList.contains('left-[-100vw]')){
+        element?.classList.remove('left-[-100vw]')
+        element?.classList.add('left-0')
+      }else{
+        element?.classList.remove('left-0')
+        element?.classList.add('left-[-100vw]')
+      }
+    }
+  }
+
   return (
-    <div className="w-[15rem] shrink-0 h-full rounded-md p-5 bg-neutral-200 flex flex-col justify-between">
+    <div id="dashboard-side-nav" className="absolute transition-all ease-in-out duration-150 left-[-100vw] md:left-0 top-0 md:relative z-50 w-[15rem] shrink-0 h-full rounded-md p-5 bg-neutral-200 flex flex-col justify-between">
       <div>
         {/* header */}
         <header className="flex items-center justify-between">
@@ -74,7 +88,7 @@ const DashboardSideNav = () => {
           </div>
           {/* right */}
           <div>
-            <AiOutlineClose className="text-lg text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-700 cursor-pointer" />
+            <AiOutlineClose onClick={sideNavBarToggler} className="text-lg md:hidden text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-700 cursor-pointer" />
           </div>
         </header>
         {/* links */}

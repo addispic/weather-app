@@ -18,6 +18,7 @@ import { AiFillInstagram } from "react-icons/ai";
 import { FaGithub } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa6";
 import { AiFillTikTok } from "react-icons/ai";
+import { FaCloudMoonRain } from "react-icons/fa";
 
 
 // slices
@@ -89,21 +90,35 @@ const Dashboard = () => {
       navigate("/login");
     }
   });
+
+  // side nav bar toggler
+  const sideNavBarToggler = () => {
+    let element = document.getElementById('dashboard-side-nav')
+    if(element?.classList.contains('absolute')){
+      if(element?.classList.contains('left-[-100vw]')){
+        element?.classList.remove('left-[-100vw]')
+        element?.classList.add('left-0')
+      }else{
+        element?.classList.remove('left-0')
+        element?.classList.add('left-[-100vw]')
+      }
+    }
+  }
   return (
     <div className="flex-grow flex">
       {/* content container */}
-      <div className="max-w-[1524px] mx-auto px-[3%] py-[1%] flex-grow flex gap-x-10">
+      <div className="max-w-[1524px] mx-auto px-[3%] py-[1%] flex-grow flex gap-x-10 relative">
         {/* dashboard side nav */}
         <DashboardSideNav />
         {/* dashboard content container */}
-        <div className="bg-neutral-100g gap-y-3 w-full flex flex-col rounded-md">
+        <div className="bg-neutral-100g gap-y-3 flex-grow flex flex-col rounded-md">
           {/* content */}
-          <div className="h-[86vh]  overflow-y-auto">
+          <div className="h-[86vh]  overflow-y-auto pr-2">
             {/* 1 */}
             <header className="flex items-center justify-between">
               <div className="flex items-center gap-x-3">
                 {/* icon */}
-                <AiOutlineMenu className="text-lg text-neutral-500 cursor-pointer transition-colors ease-in-out duration-150 hover:text-neutral-700"/>
+                <AiOutlineMenu onClick={sideNavBarToggler} className="text-lg text-neutral-500 md:hidden cursor-pointer transition-colors ease-in-out duration-150 hover:text-neutral-700"/>
                 {/* title */}
                 <h4 className="text-neutral-700">Dashboard</h4>
               </div>
@@ -117,11 +132,11 @@ const Dashboard = () => {
               </div>
             </header>
             {/* 2 */}
-            <div className="mt-5 flex gap-5">
+            <div className="mt-5 flex flex-col-reverse lg:flex-row gap-5">
               {/* left */}
-              <div className="w-[50%] bg-red-300">left</div>
+              <div className="w-full lg:w-[50%] bg-red-300">left</div>
               {/* right */}
-              <div  className="w-[50%] bg-green-100 p-5 rounded-md">
+              <div  className="w-full lg:w-[50%] bg-green-100 p-5 rounded-md">
                 {/* header */}
                 <header>
                   <div className={`flex items-center gap-x-1.5 bg-white rounded-md overflow-hidden p-2 border ${isFocus ? "border-green-300" : "border-transparent"}`}>
@@ -134,7 +149,7 @@ const Dashboard = () => {
                   </div>
                 </header>
                 {/* content */}
-                <div className="grid grid-cols-2 gap-10 mt-7">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-10 mt-7">
                   {/* left */}
                   <div className="w-[50%]c bg-white p-5 rounded-md overflow-hidden">
                     {/* image */}
@@ -151,26 +166,29 @@ const Dashboard = () => {
                       Addis Ababa</p>
                   </div>
                   {/* right */}
-                  <div className="w-[50%]c bg-white h-full rounded-md overflow-hidden grid grid-cols-2 gap-10 p-5">
-                    {
-                      [...Array(4)].map((item,index)=>{
-                        return (
-                          <div className="py-2 px-1">
-                            <div className="flex items-center gap-3 mb-1.5">
-                            {/* icon */}
-                            <div className="p-1.5 w-[32px] aspect-square text-xl text-green-500 border border-neutral-300 rounded-md flex items-center justify-center">
-                              <TiWeatherDownpour />
-                            </div>
-                              <p className="text-lg font-medium">45%</p>
-                            </div>
-                            {/* text */}
-                            <div className="text-sm text-neutral-500">
-                              <p>humidity</p>
-                            </div>
-                          </div>
-                        )
-                      })
-                    }
+                  <div>
+                    <div className="bg-white rounded-md p-5 flex items-center gap-x-3">
+                      {/* icon */}
+                      <div className="w-[64px] aspect-square border border-neutral-300 flex items-center justify-center rounded-md">
+                        <FaCloudMoonRain className="text-3xl text-sky-500"/>
+                      </div>
+                      {/* text */}
+                      <div>
+                        <h4 className="text-xl font-bold text-neutral-600">45%</h4>
+                        <p className="text-sm">Humidity</p>
+                      </div>
+                    </div>
+                    <div className="bg-white rounded-md p-5 flex items-center gap-x-3 mt-5">
+                      {/* icon */}
+                      <div className="w-[64px] aspect-square border border-neutral-300 flex items-center justify-center rounded-md">
+                        <FaCloudMoonRain className="text-3xl text-sky-500"/>
+                      </div>
+                      {/* text */}
+                      <div>
+                        <h4 className="text-xl font-bold text-neutral-600">45%</h4>
+                        <p className="text-sm">Humidity</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -186,7 +204,7 @@ const Dashboard = () => {
                 My Campaigns
               </h1>
               {/* grid */}
-              <div className="mt-3 grid grid-cols-6 gap-5">
+              <div className="mt-3 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-5">
                 {
                   histories.map((listItem,index)=>{
                     return (
