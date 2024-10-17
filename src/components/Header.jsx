@@ -137,7 +137,7 @@ const Header = () => {
                   {profiles?.length > 0 ? (
                     <img
                       className="w-full h-full object-center object-cover"
-                      src={profiles[0].image}
+                      src={profiles[0]?.image}
                       alt=""
                     />
                   ) : (
@@ -167,11 +167,11 @@ const Header = () => {
                   {/* profile */}
                   <div>
                     {/* image */}
-                    <div className="mx-auto w-[120px] aspect-square bg-green-600 relative overflow-hidden rounded-md">
+                    <div className="mx-auto w-[150px] aspect-square bg-green-600 relative overflow-hidden rounded-md">
                       {profiles?.length > 0 ? (
                         <img
                           className="w-full h-full object-cover object-center"
-                          src={`${profiles[currentIndex].image}`}
+                          src={`${profiles[currentIndex]?.image}`}
                           alt=""
                         />
                       ) : (
