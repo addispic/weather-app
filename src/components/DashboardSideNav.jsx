@@ -132,7 +132,7 @@ const DashboardSideNav = () => {
                       </button>
                     </header>
                     {/* sub links */}
-                    <div className={`transition-transform ease-in-out duration-150 absolute flex flex-col w-max h-max top-1/2 -translate-y-1/2 bg-neutral-300 left-[16.5rem] ${dashboardLinks.activeLink === linkItem.text && dashboardLinks.isOn ? "scale-100" : "scale-0"}`}>
+                    <div className={`transition-transform ease-in-out duration-150 absolute flex flex-col w-max h-max top-1/2 -translate-y-1/2 bg-neutral-300 left-[14.5rem] ${dashboardLinks.activeLink === linkItem.text && dashboardLinks.isOn ? "scale-100" : "scale-0"}`}>
                       {/* triangle */}
                       <div className="w-[18px] z-30 aspect-square bg-inherit absolute ml-[-9px] rotate-45 left-0 top-1/2 -translate-y-1/2" />
                       {linkItem.subLinks.map((subLinkItem) => {
