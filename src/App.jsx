@@ -15,7 +15,7 @@ import Dashboard from './pages/Dashboard'
 
 const App = () => {
   return (
-    <div className='h-[100vh] w-[100vw] pt-[5vh]'>
+    <div className='h-[100vh] w-[100vw] pt-[5vh] flex flex-col overflow-hidden'>
       {/* header */}
       <Header />
       {/* routes */}
