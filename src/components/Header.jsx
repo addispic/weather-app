@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, {  useState } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -17,7 +17,6 @@ import {
   profilesSelector,
   addNewProfile,
   deleteProfile,
-  profilesRefresh,
 } from "../features/users/usersSlice";
 
 const Header = () => {
@@ -38,10 +37,6 @@ const Header = () => {
   // current path
   const currentPathname = useLocation().pathname;
 
-  // effects
-  useEffect(()=>{
-    dispatch(profilesRefresh())
-  },[])
 
 
   // add new profile handler

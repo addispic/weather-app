@@ -101,8 +101,8 @@ const Login = () => {
   
 
   return (
-    <div className="max-w-[1524px] flex items-center justify-center mx-auto p-[3%]">
-      <div className="w-full max-w-[400px]">
+    <div className="w-full max-w-[1524px] flex items-center justify-center mx-auto p-[3%]">
+      <div className="w-full max-w-[420px]">
 
       {/* header */}
       <header className="flex items-center justify-between mb-6">

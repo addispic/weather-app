@@ -39,8 +39,8 @@ const DashboardSideNav = () => {
             text: "Tablet",
           },
           {
-            icon: IoTvOutline,
-            path: CiMobile3,
+            icon: CiMobile3,
+            path: "",
             text: "Phone",
           },
         ],
