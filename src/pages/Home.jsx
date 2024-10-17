@@ -35,7 +35,7 @@ const Home = () => {
       </div>
       {/* 2 */}
       <div className='max-w-[1524px] mx-auto px-[3%] my-12 md:my-20'>
-        <div className='flex gap-x-12 gap-y-5 flex-col-reverse md:flex-row'>
+        <div className='flex items-center gap-x-12 gap-y-5 flex-col-reverse md:flex-row'>
           <div className='w-full h-[200px] md:h-auto md:w-[50%] overflow-hidden'>
             <img className='w-full h-full object-center object-cover' src="http://sitegalleria.com/wp-content/uploads/2019/08/Web-Development-and-Web-Design-Company.png" alt="" />
           </div>
