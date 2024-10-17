@@ -1,7 +1,7 @@
 <!-- 
 project setup
 ----------------
-firstly make sure Node JS is installed in your machine
+firstly make sure Node JS is installed on your machine
 then in the terminal run the following commands
 1. git clone https://github.com/addispic/weather-app.git
 2. cd weather-app
