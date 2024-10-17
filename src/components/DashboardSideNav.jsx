@@ -61,7 +61,7 @@ const DashboardSideNav = () => {
     isOn: false
   });
   return (
-    <div className="w-[17rem] h-full rounded-md p-5 bg-neutral-200 flex flex-col justify-between">
+    <div className="w-[15rem] shrink-0 h-full rounded-md p-5 bg-neutral-200 flex flex-col justify-between">
       <div>
         {/* header */}
         <header className="flex items-center justify-between">
