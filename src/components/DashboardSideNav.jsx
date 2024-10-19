@@ -88,7 +88,15 @@ const DashboardSideNav = () => {
           </div>
           {/* right */}
           <div>
-            <AiOutlineClose onClick={sideNavBarToggler} className="text-lg md:hidden text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-700 cursor-pointer" />
+            <AiOutlineClose  onClick={()=>{
+              sideNavBarToggler()
+              setDashboardLinks(prev => {
+                return {
+                  ...prev,
+                  isOn: false,
+                }
+              })
+            }} className="text-lg md:hidden text-neutral-500 transition-colors ease-in-out duration-150 hover:text-neutral-700 cursor-pointer" />
           </div>
         </header>
         {/* links */}

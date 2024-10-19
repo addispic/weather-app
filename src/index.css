@@ -13,3 +13,10 @@
 ::-webkit-scrollbar-thumb {
     background-color: rgb(151, 151, 151);
 }
+
+.circle {
+    width: 4rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background-color: #ef4444;
+}

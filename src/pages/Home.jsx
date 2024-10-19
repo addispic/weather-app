@@ -33,6 +33,15 @@ const Home = () => {
           </div>
         </div>
       </div>
+      {/* show cases */}
+      {/* <div className='max-w-[1524px] mx-auto px-[3%] my-12'>
+        <div className='flex items-center justify-center gap-10'>
+          <div className='circle'></div>
+          <div>
+            <div className='w-16 aspect-square bg-red-500 rounded-full'></div>
+          </div>
+        </div>
+      </div> */}
       {/* 2 */}
       <div className='max-w-[1524px] mx-auto px-[3%] my-12 md:my-20'>
         <div className='flex items-center gap-x-12 gap-y-5 flex-col-reverse md:flex-row'>
